@@ -3,6 +3,7 @@ Created on Dec 27, 2018
 
 @author: harsh
 '''
+from test._mock_backport import right
 def bubblesort(nums):
     for i in range(len(nums)-1):
         for j in range(len(nums)-1-i):
@@ -49,25 +50,52 @@ def quicksort(nums,low,high):
     quicksort(nums, low, pivot-1)
     quicksort(nums, pivot+1, high)
     
-
-
-
-
+    
+def mergesort(nums):
+    if len(nums)==1:
+        return
+    middle = len(nums)//2
+    left = nums[:middle]
+    right = nums[middle:]
+    mergesort(left)
+    mergesort(right)
+    
+    i,j,k = 0,0,0
+    while i < len(left) and j<len(right):
+        if left[i]<right[j]:
+            nums[k] = left[i]
+            i+=1
+        else:
+            nums[k] = right[j]
+            j+=1
+        k +=1
+    while i < len(left):
+        nums[k] = left[i]
+        i+=1
+        k+=1
+    while j < len(right):
+        nums[k] = right[j]
+        j+=1
+        k+=1
 
 
 if __name__ =="__main__":
     a = [1,5,4,3,55,32,232,122]
     
-    print("Bubble Sort")
-    print(bubblesort(a))
-    
-    print("\nSelection sort")
-    print(selectionsort(a))
-    
-    print("\nInsertion Sort")
-    print(insertionsort(a))
-    
-    print("\n Quick Sort")
+#     print("Bubble Sort")
+#     print(bubblesort(a))
+#     
+#     print("\nSelection sort")
+#     print(selectionsort(a))
+#     
+#     print("\nInsertion Sort")
+#     print(insertionsort(a))
+#     
+#     print("\n Quick Sort")
+#     print(a)
+#     quicksort(a, 0, len(a)-1)
     print(a)
-    quicksort(a, 0, len(a)-1)
+    
+    print("\nMerge Sort")
+    mergesort(a)
     print(a)
